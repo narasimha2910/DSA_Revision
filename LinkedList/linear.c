@@ -312,19 +312,34 @@ void Merge(struct Node *p, struct Node *q){
     if(q) last->next = q;
 }
 
+int isLoop(struct Node *f){
+    struct Node *p=f, *q=f;
+    do{
+        p = p->next;
+        q = q->next;
+        q = q?q->next:NULL;
+    }while(p && q && p!=q);
+    return (p==q)?1:0;
+}
+
 // TODO: Write function for insert using last pointer
 // TODO: Write function for reversing using array
 
 int main() {
     int A[] = {1,2,3,4,6};
     create(A,5);
-    int B[] = {5, 10, 120};
-    create2(B,3);
-    display(first);
-    display(second);
+    struct Node *t1, *t2;
+    t1 = first->next->next;
+    t2 = first->next->next->next->next;
+    t2->next=t1;
+    // int B[] = {5, 10, 120};
+    // create2(B,3);
+    // display(first);
+    // display(second);
     // concatenate(second, first);
-    Merge(first, second);
-    display(third);
+    // Merge(first, second);
+    // display(third);
+    isLoop(first)?printf("\nLoop\n"):printf("\nNo Loop\n");
     // insertNode(second, 1, 11);
     // insertNode(second, 2, 12);
     // concatenate(first, second);
@@ -353,6 +368,6 @@ int main() {
     // printf("%p\n", search(first, 3));
     // printf("%p\n", recSearch(first, 3));
     // printf("%p\n", moveToHead(first, 3));
-    display(second);
+    // display(second);
     return 0;
 }
